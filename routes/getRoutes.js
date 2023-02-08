@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const main = require("../scrapeFunction/scrape");
+const path = require("path");
 
 router.post("/indeed", async (req, res) => {
     try {
@@ -9,11 +10,22 @@ router.post("/indeed", async (req, res) => {
         // ? ==> if scrap is null ... dont proceed to dot function
         return res.status(200).json({
             status: "ok",
-            list: scrap?.list || {} 
+            list: scrap?.list || {},
         });
     } catch (e) {
         console.log(e);
         return res.status(500).send(e.message);
+    }
+});
+
+router.get("/getData", async (req, res) => {
+    try {
+        const jobs = path.join(__dirname, "..", "job.json");
+        console.log(jobs);
+        return res.status(200).sendFile(jobs);
+    } catch (e) {
+        // console.log(e);
+        return res.status(500).send(e);
     }
 });
 
