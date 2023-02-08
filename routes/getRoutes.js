@@ -1,17 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const main = require("../scrapeFuncion/scrape");
+const main = require("../scrapeFunction/scrape");
 
 router.post("/indeed", async (req, res) => {
     try {
         const { skill } = req.body;
         let scrap = await main(skill);
+        // ? ==> if scrap is null ... dont proceed to dot function
         return res.status(200).json({
             status: "ok",
-            list: scrap?.list || {}, // if scrap is null ... dont proceed to dot function
+            list: scrap?.list || {} 
         });
     } catch (e) {
-        return res.status(500).send(e);
+        console.log(e);
+        return res.status(500).send(e.message);
     }
 });
 
