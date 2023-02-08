@@ -7,7 +7,6 @@ router.post("/indeed", async (req, res) => {
     try {
         const { skill } = req.body;
         let scrap = await main(skill);
-        // ? ==> if scrap is null ... dont proceed to dot function
         return res.status(200).json({
             status: "ok",
             list: scrap?.list || {},
@@ -24,7 +23,6 @@ router.get("/getData", async (req, res) => {
         console.log(jobs);
         return res.status(200).sendFile(jobs);
     } catch (e) {
-        // console.log(e);
         return res.status(500).send(e);
     }
 });

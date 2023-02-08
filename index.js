@@ -1,16 +1,6 @@
 const express = require("express");
 const app = express();
 const getRoutes = require("./routes/getRoutes");
-// const ngrok = require("ngrok");
-
-// (async function () {   
-//     const url = await ngrok.connect({
-//         proto: "http",
-//         addr: PORT,
-//         authtoken: "1t2y3u4i5o6p7a8s9d0f",
-//     });
-//     console.log(url);
-// })();
 
 const PORT = 3001;
 

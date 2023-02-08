@@ -5,7 +5,6 @@ const data = {
 };
 
 async function main(skill) {
-    // headless false means we get to see browser
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     await page.goto(`https://in.indeed.com/jobs?q=${skill}&l=Delhi%2C+Delhi`, {
@@ -18,7 +17,6 @@ async function main(skill) {
     //     console.log("Screenshot taken");
     // });
 
-    // Console.log() shows up in the pupeteer context not in the app one... so console logging wont work.
     const jobData = await page.evaluate(async (data) => {
         const items = document.querySelectorAll("td.resultContent");
         items.forEach((item) => {
@@ -34,7 +32,6 @@ async function main(skill) {
             data.list.push({ title, salary, companyName, link });
             console.log("data :>> ", data);
         });
-        // This one fucking line took me way too long to figure out
         return data;
     }, data);
 
