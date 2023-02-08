@@ -13,6 +13,11 @@ async function main(skill) {
         waitUntil: "networkidle0",
     });
 
+    const screenshot = await page.screenshot({ fullPage: true });
+    fs.writeFile("screenshot.png", screenshot, "base64", () => {
+        console.log("Screenshot taken");
+    });
+
     // Console.log() shows up in the pupeteer context not in the app one... so console logging wont work.
     const jobData = await page.evaluate(async (data) => {
         const items = document.querySelectorAll("td.resultContent");
