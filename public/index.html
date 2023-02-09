@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Scrapper</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Rubik:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="title-cont">
+    <h1 class="title neonText" >Puppeteer Web Scrapper</h1>
+  </div>
+  <div class="work-cont">
+    <form class="work-form">
+      <section class="work-form-input">
+        <input placeholder="For what skill (ex: SDE)" type="text" required class="skill choice" autofocus>
+      <input placeholder="Location?" type="text" class="location choice" list="cityname">
+        <datalist id="cityname">
+          <option value="Bangalore, Karnataka">
+          <option value="Delhi, Delhi">
+          <option value="Mumbai, Maharashtra">
+          <option value="Noida, Uttar Pradesh">
+          <option value="Gurugram, Haryana">
+        </datalist>
+      </section>
+      <section class="work-form-buttons">
+        <a class = "scrap" href="#">
+        <b>Scrap</b>
+      </a>
+      <a class = "result" href="#">
+        <b>Results</b>
+      </a>
+      </section>
+    </form>
+  </div>
+</body>
+  <script>
+    const scrapButton = document.querySelector('.scrap');
+    const resButton = document.querySelector('.result');
+    const form = document.querySelector('.work-form');
+    const BASE_URL = 'https://Puppeteer-Web-Scrapper.atharm.repl.co';
+    let data = {};
+    
+    scrapButton.addEventListener('click',async () => {
+      const skill = document.querySelector('.skill');
+        const location = document.querySelector('.location');
+        const input = {
+          "skill" : skill.value ,
+          "location" : location.value ,
+        };
+        console.log(input);
+        const response = await fetch(`${BASE_URL}/api/v1/indeed`,{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(input),
+      });
+      let data = await response.text;
+      console.log(data);
+      return fetchResult();
+  });
+
+  resButton.addEventListener('click',fetchResult());
+
+  function fetchResult(){
+    const x = data;
+    console.log(x);
+    return;
+  }
+  </script>
+</html>

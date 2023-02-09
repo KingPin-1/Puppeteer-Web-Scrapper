@@ -5,8 +5,8 @@ const path = require("path");
 
 router.post("/indeed", async (req, res) => {
     try {
-        const { skill } = req.body;
-        let scrap = await main(skill);
+        const details = req.body;
+        let scrap = await main(details);
         return res.status(200).json({
             status: "ok",
             list: scrap?.list || {},
